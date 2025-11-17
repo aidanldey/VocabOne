@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft-07/schema#",
+  "$id": "https://vocabulary-learning-system.org/schemas/module/v1.0.0",
+  "title": "Vocabulary Learning Module Schema",
+  "description": "Schema for vocabulary learning modules with multi-card spaced repetition",
+  "version": "1.0.0",
+  "type": "object",
+  "required": ["module_metadata", "vocabulary_entries"],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$",
+      "default": "1.0.0"
+    },
+    "module_metadata": {
+      "type": "object",
+      "required": ["module_id", "title", "version", "language"],
+      "properties": {
+        "module_id": {"type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"},
+        "title": {"type": "string", "minLength": 1, "maxLength": 100},
+        "version": {"type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$"},
+        "language": {"type": "string", "pattern": "^[a-z]{2}$"}
+      }
+    },
+    "vocabulary_entries": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["entry_id", "term", "cards"],
+        "properties": {
+          "entry_id": {"type": "string"},
+          "term": {"type": "string", "minLength": 1},
+          "cards": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "required": ["card_id", "card_type", "content"]
+            }
+          }
+        }
+      }
+    }
+  }
+}

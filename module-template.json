@@ -1,0 +1,64 @@
+{
+  "schema_version": "1.0.0",
+  "module_metadata": {
+    "module_id": "your-module-id",
+    "title": "Your Module Title",
+    "description": "Description of your vocabulary module",
+    "version": "1.0.0",
+    "author": "Your Name",
+    "language": "en",
+    "domain": "general",
+    "difficulty_level": "beginner",
+    "target_audience": "General learners",
+    "created_date": "2025-01-01",
+    "license": "CC BY-SA 4.0",
+    "tags": ["tag1", "tag2"]
+  },
+  "vocabulary_entries": [
+    {
+      "entry_id": "example-001",
+      "term": "example",
+      "term_language": "en",
+      "difficulty": "beginner",
+      "core_information": {
+        "definitions": [
+          {
+            "language": "en",
+            "text": "A thing characteristic of its kind or illustrating a general rule"
+          }
+        ],
+        "part_of_speech": "noun",
+        "related_terms": ["sample", "instance", "illustration"],
+        "tags": ["common"]
+      },
+      "cards": [
+        {
+          "card_id": "example-001-def-01",
+          "card_type": "definition",
+          "difficulty": "easy",
+          "content": {
+            "definition": "A thing that illustrates a general rule or principle",
+            "prompt_text": "What word matches this definition?",
+            "expected_answer": "example",
+            "alternative_answers": ["sample"]
+          }
+        }
+      ],
+      "user_additions": {
+        "personal_notes": "",
+        "custom_cards": [],
+        "mnemonics": "",
+        "custom_tags": []
+      }
+    }
+  ],
+  "module_settings": {
+    "default_learning_direction": "recognition",
+    "enable_audio": true,
+    "enable_video": true,
+    "suggested_daily_new_words": 10,
+    "suggested_daily_reviews": 50,
+    "review_algorithm": "sm2",
+    "card_selection_strategy": "random"
+  }
+}

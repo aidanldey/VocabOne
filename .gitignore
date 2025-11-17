@@ -25,3 +25,8 @@ dist-ssr
 
 # Testing
 coverage
+
+# TypeScript build info
+*.tsbuildinfo
+*.d.ts
+!src/**/*.d.ts

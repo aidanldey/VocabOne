@@ -1,0 +1,16 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="512" height="512" rx="128" fill="#F97316"/>
+
+  <!-- Book icon -->
+  <path d="M128 128V384C128 392.837 135.163 400 144 400H368C376.837 400 384 392.837 384 384V128C384 119.163 376.837 112 368 112H144C135.163 112 128 119.163 128 128Z" stroke="white" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- Pages -->
+  <path d="M256 112V400" stroke="white" stroke-width="16" stroke-linecap="round"/>
+  <path d="M192 192H216" stroke="white" stroke-width="12" stroke-linecap="round"/>
+  <path d="M192 240H216" stroke="white" stroke-width="12" stroke-linecap="round"/>
+  <path d="M192 288H216" stroke="white" stroke-width="12" stroke-linecap="round"/>
+  <path d="M296 192H320" stroke="white" stroke-width="12" stroke-linecap="round"/>
+  <path d="M296 240H320" stroke="white" stroke-width="12" stroke-linecap="round"/>
+  <path d="M296 288H320" stroke="white" stroke-width="12" stroke-linecap="round"/>
+</svg>

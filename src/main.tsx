@@ -3,6 +3,11 @@ import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.tsx'
 import { initializeDatabase } from './services/storage/database'
+import { initializeTheme } from './store/settingsStore'
+import { ErrorBoundary } from './components/common/ErrorBoundary'
+
+// Initialize theme on app startup
+initializeTheme()
 
 // Initialize database on app startup
 initializeDatabase()
@@ -17,6 +22,8 @@ initializeDatabase()
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <App />
+    <ErrorBoundary>
+      <App />
+    </ErrorBoundary>
   </StrictMode>,
 )

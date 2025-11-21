@@ -160,6 +160,41 @@ export default defineConfig({
       '@': resolve(__dirname, './src'),
     },
   },
+  build: {
+    // Code splitting and chunk optimization
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          // Vendor chunks
+          'react-vendor': ['react', 'react-dom'],
+          'zustand-vendor': ['zustand'],
+          // UI components
+          'ui-components': [
+            './src/components/common/ErrorBoundary.tsx',
+            './src/components/common/LoadingSkeleton.tsx',
+            './src/components/common/ShortcutsHelp.tsx',
+          ],
+          // Services
+          'services': [
+            './src/services/storage/database.ts',
+            './src/services/storage/moduleRepository.ts',
+          ],
+        },
+      },
+    },
+    // Optimize chunk size
+    chunkSizeWarningLimit: 1000,
+    // Source maps for production debugging
+    sourcemap: false,
+    // Minify options
+    minify: 'esbuild',
+    target: 'esnext',
+  },
+  // Optimize dependencies
+  optimizeDeps: {
+    include: ['react', 'react-dom', 'zustand'],
+    exclude: ['@vite/client', '@vite/env'],
+  },
   test: {
     globals: true,
     environment: 'jsdom',

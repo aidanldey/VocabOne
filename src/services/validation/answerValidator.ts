@@ -3,6 +3,8 @@
  * Provides intelligent validation for language learning with partial credit and suggestions.
  */
 
+import { getLanguageProcessor } from './languageProcessors';
+
 /**
  * Validation options for customizing validation behavior.
  */
@@ -21,6 +23,8 @@ export interface ValidationOptions {
   accentSensitive?: boolean;
   /** Consider punctuation as differences */
   punctuationSensitive?: boolean;
+  /** Language code for language-specific processing (ISO 639-1) */
+  languageCode?: string;
 }
 
 /**
@@ -57,6 +61,7 @@ export class AnswerValidator {
     caseSensitive: false,
     accentSensitive: false,
     punctuationSensitive: false,
+    languageCode: 'default',
   };
 
   /**
@@ -95,9 +100,16 @@ export class AnswerValidator {
       };
     }
 
+    // Get language processor for language-specific rules
+    const languageProcessor = getLanguageProcessor(opts.languageCode || 'default');
+
+    // Apply language-specific normalization first
+    const langNormalizedUser = languageProcessor.normalize(userInput);
+    const langNormalizedExpected = languageProcessor.normalize(expected);
+
     // Normalize inputs based on options
-    const normalizedUser = this.normalizeString(userInput, opts);
-    const normalizedExpected = this.normalizeString(expected, opts);
+    const normalizedUser = this.normalizeString(langNormalizedUser, opts);
+    const normalizedExpected = this.normalizeString(langNormalizedExpected, opts);
 
     // Tier 1: Exact match
     if (normalizedUser === normalizedExpected) {
@@ -111,14 +123,28 @@ export class AnswerValidator {
       };
     }
 
-    // Tier 2: Alternative answers
+    // Tier 2: Alternative answers (including language-specific alternates)
+    const languageAlternates = languageProcessor.getAlternateForms(expected);
+    const allAlternates = [...opts.alternateAnswers, ...languageAlternates];
     const alternateResult = this.checkAlternateAnswers(
       normalizedUser,
-      opts.alternateAnswers,
+      allAlternates,
       opts
     );
     if (alternateResult) {
       return alternateResult;
+    }
+
+    // Tier 2.5: Language-specific special rules
+    const specialRuleResult = languageProcessor.checkSpecialRules(
+      normalizedUser,
+      normalizedExpected,
+      langNormalizedUser,
+      langNormalizedExpected,
+      opts
+    );
+    if (specialRuleResult) {
+      return specialRuleResult;
     }
 
     // Tier 3: Fuzzy matching
